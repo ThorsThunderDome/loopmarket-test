@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pi SDK Test</title>
+    <!-- This script MUST come before the Pi SDK script -->
+    <script>
+        // This is our global error catcher.
+        // It listens for any script error on the page.
+        window.onerror = function (message, source, lineno, colno, error) {
+            const log = document.getElementById('test-log');
+            if (log) {
+                log.innerHTML += `<p style="color: red;"><strong>SCRIPT ERROR:</strong><br>Message: ${message}<br>Source: ${source}<br>Line: ${lineno}</p>`;
+            }
+            // Return true to prevent the browser's default error handling
+            return true;
+        };
+    </script>
+    <!-- REVERTED: Using the official v2 SDK script for modern devices -->
+    <script src="https://sdk.pi-network.com/v2/pi-sdk.js"></script>
+</head>
+<body style="background-color: #111; color: #fff; font-family: sans-serif;">
+    <h1>Testing Pi SDK for Errors...</h1>
+    <div id="test-log" style="font-family: monospace; background: #333; color: #fff; padding: 10px; border: 1px solid #555; margin-top: 10px;"></div>
+    <script>
+        const log = (msg) => {
+            document.getElementById('test-log').innerHTML += `<p>${msg}</p>`;
+        };
+
+        window.onload = () => {
+            log('window.onload event fired.');
+            if (typeof Pi !== 'undefined') {
+                log('SUCCESS: Pi object was found!');
+            } else {
+                log('FAILURE: Pi object was NOT found.');
+            }
+        };
+    </script>
+</body>
+</html>
